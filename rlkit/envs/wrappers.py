@@ -194,7 +194,10 @@ class CustomInfoEnv(Wrapper):
         super().__init__(wrapped_env)
 
     def step(self, action):
-        state, reward, done, info = self.env.step(action)
+        print()
+        state, reward, done, info, dummy_var = self.env.step(action)
+        # FIXME: why the code uses 4 args, but 5 are needed (i.e. the added dummy_var)
+        # print(state, reward, done, info, dummy_var, sep='* ')
         if self.env_type == "mujoco":
             custom_info = {'failed': done}
         if self.env_type == "box2d":
